@@ -31,10 +31,10 @@ try {
 
     # Send the message to Discord
     $payload = @{ content = $message } | ConvertTo-Json -Compress
-    Invoke-RestMethod -Uri 'https://discord.com/api/webhooks/1372616054664073320/UnxIbbbhdjldR18Xgsu05fywZn_cY6dRNQBdG_kD3qtlS4cfqdXOY3pQYt-J5LxTRH7B' -Method Post -Body $payload -ContentType 'application/json'
+    Invoke-RestMethod -Uri 'https://discord.com/api/webhooks/1374825778193236008/26E8HcYdvmSp3BaKLu_5O9rC5H_xOD9-Z4Pw_BDH1Ns-5cWZd-7WMTxab29tgK3e8B9E' -Method Post -Body $payload -ContentType 'application/json'
 }
 catch {
     # Send error info to Discord if anything goes wrong
     $err = @{ content = "❌ Error: $($_.Exception.Message)" } | ConvertTo-Json -Compress
-    Invoke-RestMethod -Uri 'https://discord.com/api/webhooks/1372616054664073320/UnxIbbbhdjldR18Xgsu05fywZn_cY6dRNQBdG_kD3qtlS4cfqdXOY3pQYt-J5LxTRH7B' -Method Post -Body $err -ContentType 'application/json'
+    Invoke-RestMethod -Uri 'https://discord.com/api/webhooks/1374825778193236008/26E8HcYdvmSp3BaKLu_5O9rC5H_xOD9-Z4Pw_BDH1Ns-5cWZd-7WMTxab29tgK3e8B9E' -Method Post -Body $err -ContentType 'application/json'
 }
